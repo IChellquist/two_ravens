@@ -21,6 +21,8 @@ entity Stock {
 	name String
     ticker String
     exchange String
+    sector String
+    industry String
 }
 
 relationship OneToMany {
