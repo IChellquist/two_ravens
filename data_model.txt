@@ -1,0 +1,36 @@
+
+
+entity StockReportPicture {
+	stockReportPictureID Integer
+    date Integer
+	image Blob
+    reportType ReportType
+    
+}
+
+entity NewsArticle {
+	newsArticleId Integer
+	title String
+    url String
+    text String
+    date Integer
+}
+
+entity Stock {
+	stockID Integer
+	name String
+    ticker String
+    exchange String
+}
+
+relationship OneToMany {
+	Stock to NewsArticle
+    Stock to StockReportPicture
+    StockReportPicture to NewsArticle
+}
+
+enum ReportType {
+	GAINER, DECLINER
+}
+
+
