@@ -11,10 +11,12 @@ import java.util.Set;
 public class Stock {
 
     public Stock() {}
-    public Stock(String name, String ticker, String exchange) {
+    public Stock(String name, String ticker, String exchange, String sector, String industry) {
         this.name = name;
         this.ticker = ticker;
         this.exchange = exchange;
+        this.sector = sector;
+        this.industry = industry;
     }
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
