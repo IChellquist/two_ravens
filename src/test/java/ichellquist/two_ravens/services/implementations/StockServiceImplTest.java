@@ -21,14 +21,15 @@ import java.util.List;
 import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
-@TestPropertySource(locations = "classpath:/testing_resources/database_integration_testing.yml")
 class StockServiceImplTest {
 
-    //url for the report
+    //url for the report, using a local file for the sake of this test.
     private String report_url = "/testing_resources/testdata_getStocksFromPredefinedScan.html";
     @Autowired
     private StockRepository stockRepository;
-    private final StockServiceImpl stockService = new StockServiceImpl(stockRepository);
+    @Autowired
+    private WebBrowserServiceImpl webBrowserService = new WebBrowserServiceImpl();
+    private final StockServiceImpl stockService = new StockServiceImpl(stockRepository, webBrowserService);
 
     @BeforeEach
     void setUp() {

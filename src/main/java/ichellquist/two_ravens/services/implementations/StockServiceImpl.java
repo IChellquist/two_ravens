@@ -21,7 +21,9 @@ import java.util.List;
 public class StockServiceImpl implements StockService {
 
     private final StockRepository stockRepository;
-    public StockServiceImpl(StockRepository stockRepository){
+    private final WebBrowserServiceImpl webBrowserService;
+    public StockServiceImpl(StockRepository stockRepository, WebBrowserServiceImpl webBrowserService){
+        this.webBrowserService = webBrowserService;
         this.stockRepository = stockRepository;
     }
 
@@ -29,16 +31,8 @@ public class StockServiceImpl implements StockService {
     public List<Stock> getStocksFromPredefinedScan(URL url) throws IOException {
         //return arraylist
         ArrayList<Stock> stocks = new ArrayList<>();
-        //set up the WebClient from HTML Unit
-        WebClient webClient = new WebClient(BrowserVersion.FIREFOX);
-        webClient.getOptions().setJavaScriptEnabled(true);
-        webClient.getOptions().setCssEnabled(false);
-        webClient.getOptions().setThrowExceptionOnScriptError(false);
-        webClient.setAjaxController(new NicelyResynchronizingAjaxController());
-        HtmlPage page = webClient.getPage(url);
-        //parse the table
-        HtmlTable table = page.getHtmlElementById("sccDataTable");
-        List<HtmlTableRow> rows = table.getRows();
+        List<HtmlTableRow> rows = webBrowserService.getRowsFromTableInHtmlPage("sccDataTable", url);
+        //parse the table, skipping first row because it has no stock data
         for (int i = 1; i < rows.size(); i++) {
             HtmlTableRow row = rows.get(i);
             Stock stock = new Stock(
