@@ -23,8 +23,7 @@ class WebBrowserServiceImplTest {
     @Value("${base_stockimage_url}")String base_image_url;
 
     @BeforeEach
-    void setUp() {
-        webBrowserService = new WebBrowserServiceImpl();
+    void setUp() {webBrowserService = new WebBrowserServiceImpl();
     }
 
     @Test
